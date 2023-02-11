@@ -1,0 +1,114 @@
+{% extends "layout copy.html" %}
+
+{% block content %}
+
+<form id="F" action="/zodiaco/" method="post">
+
+    <div id="uno">
+        <h1>Datos Personales</h1>
+        <div>
+            <h4 class="wi d-inline-block">Nombre:</h4><input type="text" id="nom" name="nom" placeholder="Nombre"/></br>
+            <h4 class="wi d-inline-block">Paterno:</h4><input type="text" id="apa" name="apa" placeholder="Apellido paterno"/></br>
+            <h4 class="wi d-inline-block">Materno:</h4><input type="text" id="ama" name="ama" placeholder="Apellido materno"/></br>
+        </div>
+
+        <h2>Fecha de nacimiento</h2>
+
+        <div>
+            <h4 class="small">Dia</h4>
+            <h4 class="small">Mes</h4>
+            <h4 class="small">Año</h4>
+            <br>
+            <input class="small" type="number" id="dia" name="dia" placeholder="Dia" min="1"  max="31"/>
+            <input class="small" type="number" id="mes" name="mes" placeholder="Mes" min="01" max="12" />
+            <input class="small" type="number" id="ano" name="ano" placeholder="Año" min="1950" />
+        </div>
+
+        <div>
+            <label for="" class="w d-inline-block">Sexo</label><br>
+            <input class="m-2" type='radio' name='sex' value='M' required checked>Masculino
+            <input class="m-2" type='radio' name='sex' value='F'>Femenino
+            <br>
+        </div>
+
+    </div>
+
+ 
+
+    <div id="dos" style="display: none;">
+        <h4>Cuando es 1+1?</h4>
+        <input class="m-2" type='radio' name='P1' value='1' required>a) 2
+        <input class="m-2" type='radio' name='P1' value='2'>b) 11
+        <input class="m-2" type='radio' name='P1' value='2'>c) No se
+        <input class="m-2" type='radio' name='P1' value='2'>d) Juan
+
+        <h4>Cuando es 1-1?</h4>
+        <input class="m-2" type='radio' name='P2' value='1' required>a) 0
+        <input class="m-2" type='radio' name='P2' value='2'>b) 11
+        <input class="m-2" type='radio' name='P2' value='2'>c) No se
+        <input class="m-2" type='radio' name='P2' value='2'>d) Juan
+
+        <h4>Cuando es 1*1?</h4>
+        <input class="m-2" type='radio' name='P3' value='1' required>a) 1
+        <input class="m-2" type='radio' name='P3' value='2'>b) 11
+        <input class="m-2" type='radio' name='P3' value='2'>c) No se
+        <input class="m-2" type='radio' name='P3' value='2'>d) Juan
+
+        <h4>Cuando es 2+2?</h4>
+        <input class="m-2" type='radio' name='P4' value='1' required>a) Pez
+        <input class="m-2" type='radio' name='P4' value='2'>b) Esta no es
+        <input class="m-2" type='radio' name='P4' value='2'>c) Esta tampoco
+        <input class="m-2" type='radio' name='P4' value='2'>d) La respuesta es Pez
+
+        <h4>Vive en una piña debajo del mar...</h4>
+        <input class="m-2" type='radio' name='P5' value='1' required>a) Bob-Esponja
+        <input class="m-2" type='radio' name='P5' value='2'>b) Charizard
+        <input class="m-2" type='radio' name='P5' value='2'>c) Oh no mataron a kenny
+        <input class="m-2" type='radio' name='P5' value='2'>d) Juan Martinez del IDGS804
+    </div>
+
+
+</form>
+
+
+<div>
+    
+    <div class="d-inline-block">
+    <button class="btn btn-primary" type="submit" form="F" id="btn_dos"
+        style="display: none;">Terminar</button>
+    </div>
+    <div class="d-inline-block">
+    <button class="btn btn-primary " type="button" id="btn_uno"
+        onclick="
+            if(
+                document.getElementById('nom').value !='' &&
+                document.getElementById('apa').value !='' &&
+                document.getElementById('ama').value !='' &&
+
+                document.getElementById('dia').value !='' &&
+                document.getElementById('mes').value !='' &&
+                document.getElementById('ano').value !=''
+                ){
+                    document.getElementById('uno').style.display = 'none';
+                    document.getElementById('btn_uno').style.display = 'none';
+                    document.getElementById('dos').style.display = 'block';
+                    document.getElementById('btn_dos').style.display = 'block';
+            }else{
+                alert('llene todos los campos')
+            }
+            "
+        
+        
+        >Siguiente</button>
+    </div>
+    <button class="btn btn-primary d-inline-block" onclick="
+        document.getElementById('F').reset();
+        document.getElementById('uno').style.display = 'block';
+        document.getElementById('btn_uno').style.display = 'block';
+        document.getElementById('dos').style.display = 'none';
+        document.getElementById('btn_dos').style.display = 'none';
+        ">Limpiar</button>
+</div>
+</body>
+
+{% endblock %}

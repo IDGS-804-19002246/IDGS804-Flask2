@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form action='/puntos/' method='POST'>
+
+    <label>Dame las coordenadas del 1° punto</label>
+    <br>
+    <label>X</label>
+    <input type='text' name='X1'/>
+
+    <label>Y</label>
+    <input type='text' name='Y1'/>
+    <br><br>
+
+    <label>Dame las coordenadas del 2° punto</label>
+    <br>
+    <label>X</label>
+    <input type='text' name='X2'/>
+    <label>Y</label>
+    <input type='text' name='Y2'/>
+
+    <input type='submit' value='Calcular distancia'/>
+    </form>
+{% endblock %}
