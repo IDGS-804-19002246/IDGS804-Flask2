@@ -7,3 +7,28 @@
     </div>
 </div>
 {%endmacro%}
+
+
+{% macro render_firld(field) %}
+<!-- 1° manera de pasar parametros en lista -->
+<!-- *args -->
+<!-- 2° manera de pasar parametros en lista/diccionarios -->
+<!-- **kwargs -->
+<div class="control-group">
+    <div class="controls">
+        {{field.label}}        
+        {{field(**kwargs)|safe}}
+    </div>
+</div>
+{%endmacro%}
+
+
+
+{% macro CajasDinamicas(name) %}
+<div class="control-group">
+    <label for="{{name}}" class="control-label">{{name}}</label>
+    <div class="controls">
+        <input type="number" name="{{name}}" class="input_xlarge" required>
+    </div>
+</div>
+{%endmacro%}

@@ -1,5 +1,27 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h2>Alumnos</h2>
+<div class="col-xs-6">
+    {% from '_macros.html' import render_firld %}
+    <form action="" method="post">
+        {{form.csrf_token}}
+        <input type="hidden" mane="csrf_token" value="{{csrf_token()}}">
+
+        <div class="row control-group">
+            <div class="form-group">
+                {{alum_Field(form.matricula, class='form-control')}}
+            </div>
+        </div>
+        {{alum_Field(form.nombre)}}
+        {{alum_Field(form.apaterno)}}
+        {{alum_Field(form.email)}}
+        <input type="submit" id="al" name="al" value="Registrar">
+    </form>
+</div>
+
+<div class="col-md-4">
+    <!-- <h1>Matricula: {{mat}}</h1><br>
+    <h1>Nombre: {{nom}}</h1><br>
+    <h2></h2> -->
+</div>
 {% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% from '_macros.html' import CajasDinamicas %}
+
+<form action="/CajasDinamicas" class="form-horizontal" name="form1" method="post">
+
+    <div class="control-group">
+        <label for="num0" class="control-label">Numero de campos</label>
+        <div class="controls">
+            <input type="number" id="num0" class="input_xlarge" onchange="n(this)" type="button" name="num0" min="1"
+                max="10" value="1">
+        </div>
+    </div>
+    <hr>
+
+
+    <div id="caja" style="margin-top: 25px;">
+        {{ CajasDinamicas('num1') }}
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-default btn-primary">
+                <i class="icon-book icon-white"></i>Enviar
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    window.addEventListener('load', event => { document.getElementById('num0').value = 1; });
+    function n(num) {
+        var n = num.value;
+        document.getElementById('caja').innerHTML = '';
+        for (let i = 0; i < n; i++) {
+            document.getElementById('caja').innerHTML += `{{ CajasDinamicas('num${i + 1}') }}`
+        }
+    }
+</script>
+{% endblock %}
