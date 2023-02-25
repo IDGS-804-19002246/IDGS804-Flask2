@@ -6,21 +6,30 @@
         placeholder="{{placeholder}}">
     </div>
 </div>
-{%endmacro%}
+{% endmacro %}
 
 
 {% macro render_firld(field) %}
-<!-- 1° manera de pasar parametros en lista -->
-<!-- *args -->
-<!-- 2° manera de pasar parametros en lista/diccionarios -->
-<!-- **kwargs -->
-<div class="control-group">
-    <div class="controls">
-        {{field.label}}        
-        {{field(**kwargs)|safe}}
+    <!-- 1° manera de pasar parametros en lista -->
+    <!-- *args -->
+    <!-- 2° manera de pasar parametros en lista/diccionarios -->
+    <!-- **kwargs -->
+    <div class="control-group">
+        <div class="controls">
+            {{field.label}}        
+            {{field(**kwargs)|safe}}
+        </div>
     </div>
-</div>
-{%endmacro%}
+    {% if field.errors %}
+        <ul>
+            {% for error in field.errors %}
+                <li style="color:red">
+                    {{error}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
 
 
 
@@ -32,3 +41,23 @@
     </div>
 </div>
 {%endmacro%}
+
+
+
+{% macro render_t(field) %}
+    <div class="control-group">
+        <div class="controls">
+            {{field.label}}        
+            {{field(**kwargs)|safe}}
+        </div>
+    </div>
+    {% if field.errors %}
+        <ul>
+            {% for error in field.errors %}
+                <li style="color:red">
+                    {{error}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
