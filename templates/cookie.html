@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="col-xs-6">
+    {% from '_macros.html' import render_firld %}
+    <form action="" method="post" novalidate>
+        <div class="row control-group">
+
+
+            {{render_firld(form.Username)}}
+            {{render_firld(form.Password)}}
+        </div>
+        <input type="submit" id="al" name="al" value="Entrar">
+    </form>
+</div>
+
+{% endblock %}

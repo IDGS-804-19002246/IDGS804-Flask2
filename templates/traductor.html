@@ -1,0 +1,43 @@
+{% extends "layout copy.html" %}
+
+{% block content %}
+<div class="col-xs-6">
+    {% from '_macros.html' import render_t %}
+    <form action="" method="post" novalidate id="gua">
+        {{render_t(formIn.esp)}}
+        {{render_t(formIn.ing)}}
+        <input type="hidden" name="envio" value="gua">
+        <input type="submit" id="al1" name="al" value="Guardar" form="gua">
+    </form>
+<!-- ------------------------------------------------------------------------------------------------ -->
+    <hr>
+    <form action="" method="post" novalidate id="tra">
+        <input type="hidden" name="envio" value="tra">
+        <div class="w-25 d-inline-block">
+            <h6>Idioma de la palabra para traducir</h6>
+            <input type="radio" name='idioma' value='esp' class="pt-2" required checked>Español
+            <br>
+            <input type="radio" name='idioma' value='ing' class="pt-2">Ingles
+        </div>
+        <div class="w-25 d-inline-block">
+            {{render_t(formOut.pal)}}
+            <input type="submit" id="al2" name="al" value="Traducir" form="tra">
+        </div>
+        {% if pal2 != ''%}
+            <h4>Palabra Traducida: {{pal2}}</h4>
+        {% else %}
+            <h4>No se encontraron palabras similares</h4>
+        {%endif%}
+
+    </form>
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+<div class="col-md-4">
+    <h6>{{datos[0]}}</h6>
+    <h6>{{datos[1]}}</h6>
+</div>
+</div>
+<script>
+    window.addEventListener('load', event => { document.getElementById('tra').reset(); });
+</script>
+{% endblock %}
