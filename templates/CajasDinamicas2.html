@@ -7,14 +7,24 @@
     <h2>El numero menor es: {{me}}</h2>
 
     <hr>
-    {% for obj in r %}
-        <h4>El {{ loop.index }}° numero aparece: {{obj}} 
+    
+
+    {% for obj in r.keys() %}
+        {% if r[obj] != 1 %}
+            <h4>El {{obj}} numero aparece: {{r[obj]}} veces</h4>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+<!-- <h4>El {{ loop.index }}° numList[loop.index] numero aparece: {{obj}}  -->
+    <!-- {% for obj in r %}
+        {% if  obj != 1 %}
+        <h4>El {{numList[loop.index -1]}} numero aparece: {{obj}} 
             {% if obj == 1 %}
                 vez
             {% else %}
                 veces
             {% endif %}
         </h4>
-    {% endfor %}
-
-{% endblock %}
+        {% endif %}
+    {% endfor %} -->
