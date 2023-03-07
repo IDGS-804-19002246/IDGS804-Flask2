@@ -23,3 +23,7 @@
 .border{
     border: 4px solid white;
 }
+
+.table tr td{
+    background-color: var(--i);
+}

@@ -61,3 +61,33 @@
         </ul>
     {% endif %}
 {% endmacro %}
+
+
+
+{% macro render_color(barra,nombre,color) %}
+    <div class="control-group">
+        <div class="controls">
+            <label class="text-light">{{barra}}</label>
+            <select name="{{barra}}" class="">
+                <option value="{{color}}">{{nombre}}</option>
+            </select>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro render_color2(nombre,colores) %}
+    <div class="control-group">
+        <div class="controls">
+            <label class="text-light">{{nombre}}</label>
+            <select id="{{nombre}}" name="{{nombre}}" required onchange="color()">
+                {% for obj in colores %}
+                    {% if nombre == 'barra3' %}
+                        <option value="{{obj[2]}}">{{obj[0]}} x {{obj[2]}}</option>
+                    {% else %}
+                        <option value="{{obj[1]}}">{{obj[0]}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+{% endmacro %}
