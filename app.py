@@ -130,61 +130,57 @@ def CajasDinamicas():
     else:
         return render_template("CajasDinamicas.html")
 
+@app.route("/resistencia", methods=['GET','POST'])
+def resistencia():
+    colores=[
+        ['Negro',0,1,'#000'],#0
+        ['Cafe',1,10,'#582b03'],#1
+        ['Rojo',2,100,'#f00'],#2
+        ['Naranja',3,1000,'#ff6600'],#3
+        ['Amarillo',4,10000,'#ff0'],#4
+        ['Verde',5,100000,'#007e0f'],#5
+        ['Azul',6,1000000,'#005990'],#6
+        ['Violeta',7,10000000,'#710090'],#7
+        ['Gris',8,100000000,'#606060'],#8
+        ['Blanco',9,1000000000,'#fff']#9
+    ]
+    salida = []
+    if request.method == 'POST':
+        if request.form.get('envio') == 'gua':
+            b1 = str(request.form.get('barra1'))
+            b2 = str(request.form.get('barra2'))
+            b3 = int(request.form.get('barra3'))
+            tol = int(request.form.get('tol'))
+            
+            if b1 == '0': b1 = b1.replace('0','')
+            valor = int(b1+b2)*b3
+            min = '{:.2f}'.format( valor*(1-(tol/100)) )
+            max = '{:.2f}'.format( valor*(1+(tol/100)) )
+            if b1 == '': b1 = b1.replace('','0')
 
-@app.route('/', methods=['GET', 'POST'])
-def root():
-  form = ResistenciaForm(request.form)
-  if request.method == 'POST' and form.validate():
-    banda1 = form.banda1.data
-    banda2 = form.banda2.data
-    banda3 = form.banda3.data
-    tolerancia = form.tolerancia.data
+            salida.append([int(b1),int(b2),len(str(b3))-1,tol,str(valor),str(max),str(min)])
 
-    color_banda1 = Resistencia.colores()[int(banda1)]
-    color_banda2 = Resistencia.colores()[int(banda2)]
-    color_banda3 = Resistencia.colores()[int(banda3)]
-    color_tolerancia = Resistencia.colorTolerancias()[int(tolerancia)]
+            e=open('resistencia.txt','a')
+            e.write(str([int(b1),int(b2),len(str(b3))-1,tol,str(valor),str(max),str(min)])+'\n')
+        else:
+            e = open('resistencia.txt','r')
+            arrays = e.readlines()
+            for a in arrays:
+                obj = eval(a.replace('\n',''))
 
-    clase_banda1 = Resistencia.clases()[int(banda1)]
-    clase_banda2 = Resistencia.clases()[int(banda2)]
-    clase_banda3 = Resistencia.clases()[int(banda3)]
-    clase_tolerancia = Resistencia.clasesTolerancia()[int(tolerancia)]
+                b1 = obj[0]
+                b2 = obj[1]
+                b3 = obj[2]
+                tol = obj[3]
+                
+                if b1 == '0': b1 = b1.replace('0','')
+                valor = int(b1+b2)*b3
+                min = '{:.2f}'.format( valor*(1-(tol/100)) )
+                max = '{:.2f}'.format( valor*(1+(tol/100)) )
+                if b1 == '': b1 = b1.replace('','0')
 
-    banda1 = '' if banda1 == '0' else banda1
-    banda3 = Resistencia.multiplicadores()[int(banda3)]
-    resultado = f'{banda1}{banda2}{banda3}'
-    tolerancia = Resistencia.tolerancias[int(tolerancia)].get('valor')
-    maximo = float(resultado) * float(tolerancia)
-    minimo = round(float(resultado) / float(tolerancia), 2)
-    # print(f'resultado: {resultado}, maximo: {maximo}, minimo: {minimo}')
-
-    resp = make_response(redirect(url_for('root')))
-    resp.set_cookie('color_banda1', color_banda1)
-    resp.set_cookie('color_banda2', color_banda2)
-    resp.set_cookie('color_banda3', color_banda3)
-    resp.set_cookie('color_tolerancia', color_tolerancia)
-
-    resp.set_cookie('clase_banda1', clase_banda1)
-    resp.set_cookie('clase_banda2', clase_banda2)
-    resp.set_cookie('clase_banda3', clase_banda3)
-    resp.set_cookie('clase_tolerancia', clase_tolerancia)
-    resp.set_cookie('resultado', resultado)
-    resp.set_cookie('minimo', str(minimo))
-    resp.set_cookie('maximo', str(maximo))
-
-    
-    return resp
-  return view('resistencias.j2',
-              form=form,
-              colores = Resistencia.colores(),
-              valores = Resistencia.valores(),
-              tolerancias = Resistencia.colorTolerancias()
-              )
-
-
-
-
-
+                salida.append([int(b1),int(b2),len(str(b3))-1,tol,str(valor),str(max),str(min)])
+    return render_template("resistencia.html",c=colores,salida=salida)
 
 if __name__ == '__main__':
     # app.run(debug=True)

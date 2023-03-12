@@ -35,10 +35,27 @@ def resistencia():
             e=open('resistencia.txt','a')
             e.write(str([int(b1),int(b2),len(str(b3))-1,tol,str(valor),str(max),str(min)])+'\n')
         else:
+            # e = open('resistencia.txt','r')
+            # arrays = e.readlines()
+            # for a in arrays:
+            #     salida.append(eval(a.replace('\n','')))
             e = open('resistencia.txt','r')
             arrays = e.readlines()
             for a in arrays:
-                salida.append(eval(a.replace('\n','')))
+                obj = eval(a.replace('\n',''))
+
+                b1 = obj[0]
+                b2 = obj[1]
+                b3 = obj[2]
+                tol = obj[3]
+                
+                if b1 == '0': b1 = b1.replace('0','')
+                valor = int(b1+b2)*b3
+                min = '{:.2f}'.format( valor*(1-(tol/100)) )
+                max = '{:.2f}'.format( valor*(1+(tol/100)) )
+                if b1 == '': b1 = b1.replace('','0')
+
+                salida.append([int(b1),int(b2),len(str(b3))-1,tol,str(valor),str(max),str(min)])
 
     return render_template("resistencia.html",c=colores,salida=salida)
 
